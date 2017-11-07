@@ -1,0 +1,13 @@
+<div class="comment-indent">
+        <p>{{this.content}}</p>
+        <p>Written by: {{this.author.username}}</p>
+        <a class="btn btn-default btn-sm"
+            href='/posts/{{this.postId}}/comments/{{this._id}}/replies/new'
+            role="button">
+                Reply
+        </a>
+
+    {{#each this.comments}}
+        {{> comment}}
+    {{/each}}
+</div>

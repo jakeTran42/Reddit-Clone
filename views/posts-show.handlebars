@@ -1,0 +1,51 @@
+<!-- posts-show.handlebars -->
+
+<a class="btn btn-default" href="/" role="button">Back to Home</a>
+
+<a href="{{post.url}}">
+    <h1>Post Title: {{post.title}}</h1>
+</a>
+
+<a href="/n/{{post.subreddit}}">
+    <h2>Subreddit: {{post.subreddit}}</h2>
+</a>
+
+<p>Submitted by: {{post.author.username}}</p>
+
+<div class="row">
+    <div class="col-xs-1">
+        <form class="vote-up form-group" data-id="{{post._id}}">
+            <button class="btn btn-success btn-sm" type="submit">Vote Up</button>
+        </form>
+
+        <form class="vote-down form-group" data-id="{{post._id}}">
+            <button class="btn btn-danger btn-sm" type="submit">Vote Down</button>
+        </form>
+    </div>
+
+    <div class="col-xs-6 bg-warning">
+        <p>{{post.body}}</p>
+    </div>
+</div>
+
+<p>{{post.voteScore}}</p>
+
+<form class="form-horizontal" action="/posts/{{post._id}}/comments" method="POST">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-xs-3">
+                <textarea class="form-control" name="content" rows="3" placeholder="Comment"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-default" type="submit">Save</button>
+    </div>
+</form>
+
+{{#each post.comments}}
+    {{> comment }}
+{{/each}}
+
+<p>template: posts-show.hbs</p>
