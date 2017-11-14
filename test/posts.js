@@ -6,9 +6,6 @@ var User = require('../models/user')
 var mongoose = require('mongoose')
 var expect = chai.expect;
 
-
-// var agent = chai.request.agent(server)
-
 chai.use(chaiHttp)
 mongoose.Promise = global.Promise
 
@@ -20,9 +17,6 @@ it('Should return an array of posts', (done) => {
         done(err);                        // Or call done with an error.
     });
 });
-
-// should create a new user
-// should check that user is in database
 
 it('Should create a new user', (done) => {
     testUser = new User ({ username: "testUser",
@@ -71,8 +65,6 @@ it('Should fetch a post with properties', (done) => {
     });
 });
 
-// should get id of new user
-// should find user by that id to see it exists
 
 it('Should find a user with an id', (done) => {
     User.findOne({ username: 'testUser' }).then((user) => {
@@ -87,9 +79,6 @@ it('Should find a user with an id', (done) => {
         done(err);
     });
 });
-
-// should get user that was created
-// should check that all user properties are valid
 
 
 it('Should remove a user', (done) => {

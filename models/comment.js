@@ -8,6 +8,5 @@ var CommentSchema = new Schema({
     postId: { type: Schema.Types.ObjectId, ref: 'Post', required: true }
 })
 
-//CommentSchema.add({comments: [ CommentSchema ]})
 
 module.exports = mongoose.model('Comment', CommentSchema)
