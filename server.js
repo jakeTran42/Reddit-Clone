@@ -1,14 +1,14 @@
 var express = require('express')
 var exphbs = require('express-handlebars')
-var path = require('path')
 var methodOverride = require('method-override')
+var path = require('path')
 var mongoose = require('mongoose')
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var jwt = require('jsonwebtoken')
 var app = express()
-var Post = require('./models/post')
 var User = require('./models/user')
+var Post = require('./models/post')
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -32,6 +32,7 @@ var checkAuth = function(req, res, next) {
 }
 
 app.use(checkAuth)
+
 
 require('./controllers/posts.js')(app)
 require('./controllers/comments.js')(app)

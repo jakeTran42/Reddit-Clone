@@ -6,6 +6,7 @@ var User = require('../models/user')
 var mongoose = require('mongoose')
 var expect = chai.expect;
 
+
 // var agent = chai.request.agent(server)
 
 chai.use(chaiHttp)
