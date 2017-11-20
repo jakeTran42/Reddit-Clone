@@ -14,8 +14,8 @@ module.exports = function(app) {
         res.clearCookie('nToken');
         res.redirect('/');
     });
-    
 
+    
     //POST(create) new user
     app.post('/sign-up', function (req, res, next) {
         //create instance of Post model

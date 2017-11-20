@@ -1,14 +1,14 @@
 var express = require('express')
 var exphbs = require('express-handlebars')
-var methodOverride = require('method-override')
 var path = require('path')
+var methodOverride = require('method-override')
 var mongoose = require('mongoose')
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var jwt = require('jsonwebtoken')
 var app = express()
-var User = require('./models/user')
 var Post = require('./models/post')
+var User = require('./models/user')
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -33,10 +33,10 @@ var checkAuth = function(req, res, next) {
 
 app.use(checkAuth)
 
-
 require('./controllers/posts.js')(app)
 require('./controllers/comments.js')(app)
 require('./controllers/auth.js')(app)
+require('./controllers/replies.js')(app)
 
 //GET reddit index
 app.get ('/', function (req, res) {
@@ -67,21 +67,21 @@ app.get('/login', function(req, res, next) {
 })
 
 //login post
-// app.post('/login', function(req, res, next) {
-//     User.findOne({ username: req.body.username }, "+password", function (err, user) {
-//         if ( !user ) { return res.status(401).send({ message: 'Wrong email or password' }) }
-//         user.comparePassword(req.body.password, function (err, isMatch) {
-//             if ( !isMatch ) {
-//                 return res.status(401).send({ message: 'Wrong email or password'})
-//             }
-//
-//             var token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: "60 days" })
-//             res.cookie('nToken', token, { maxAge: 900000, httpOnly: true })
-//
-//             res.redirect('/')
-//         })
-//     })
-// })
+app.post('/login', function(req, res, next) {
+    User.findOne({ username: req.body.username }, "+password", function (err, user) {
+        if ( !user ) { return res.status(401).send({ message: 'Wrong email or password' }) }
+        user.comparePassword(req.body.password, function (err, isMatch) {
+            if ( !isMatch ) {
+                return res.status(401).send({ message: 'Wrong email or password'})
+            }
+
+            var token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: "60 days" })
+            res.cookie('nToken', token, { maxAge: 900000, httpOnly: true })
+
+            res.redirect('/')
+        })
+    })
+})
 
 app.listen(3000, function() {
     console.log('Reddit clone listening on port 3000!')
